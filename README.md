@@ -19,7 +19,7 @@ $ git@github.com:RuanAlves/telefonia.git
 
  * https
 ```sh
-https://github.com/RuanAlves/telefonia.git
+git clone https://github.com/RuanAlves/telefonia.git
 ```
 
 **2.** Acesse a pasta do projeto:
