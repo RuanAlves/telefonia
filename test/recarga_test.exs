@@ -17,6 +17,10 @@ defmodule RecargaTest do
 
   end
 
+  test "Deve ser testado a estrutura" do
+    %Recarga{data: DateTime.utc_now(), valor: 10}.valor == 10
+  end
+
   test "Deve realizar uma recarga" do
     Assinante.cadastrar("Ruan 01", "123", "04345429110", :prepago)
 
