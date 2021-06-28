@@ -14,15 +14,15 @@ manipulação de arquivos, estruturas de dados, criar documentação, criar test
 
  * ssh
 ```sh
-$ git@github.com:RuanAlves/telefonia.git
+Aplique o comando no terminal: $ git@github.com:RuanAlves/telefonia.git
 ```
 
  * https
 ```sh
-git clone https://github.com/RuanAlves/telefonia.git
+Aplique o comando no terminal: git clone https://github.com/RuanAlves/telefonia.git
 ```
 
-**2.** Acesse a pasta do projeto:
+**2.** Acesse a pasta do projeto pelo terminal:
 
 ```sh
 $ cd telefonia
@@ -34,10 +34,22 @@ $ cd telefonia
 $ mix deps.get
 ```
 
-**4.** criar e migrar o banco de dados, e inserir dados do db.json:
+**4.** Acessando o Terminal para inserir as "Chamadas":
 
 ```sh
 $ iex -S mix
+```
+
+# Comandos para Testes
+
+Para gerar o percentual de teste da aplicação
+```sh
+$ mix test --cover
+```
+
+Para gerar o percentual de teste da aplicação
+```sh
+$ mix test --cover
 ```
 
 # Gerar documentação da aplicação
