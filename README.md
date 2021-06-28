@@ -14,12 +14,12 @@ manipulação de arquivos, estruturas de dados, criar documentação, criar test
 
  * ssh
 ```sh
-Aplique o comando no terminal: $ git@github.com:RuanAlves/telefonia.git
+$ git@github.com:RuanAlves/telefonia.git
 ```
 
  * https
 ```sh
-Aplique o comando no terminal: git clone https://github.com/RuanAlves/telefonia.git
+git clone https://github.com/RuanAlves/telefonia.git
 ```
 
 **2.** Acesse a pasta do projeto pelo terminal:
