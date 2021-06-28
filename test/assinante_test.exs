@@ -7,6 +7,7 @@ defmodule Assinante_test do
 
   # Toda vez que for realizar um teste, passa no SETUP primeito
   # Assim irá criar os arquivos .txt, e no 'on_exit' irá apagar esses arquivos, depois de terminar o teste
+
   setup do
     File.write("pre.txt", :erlang.term_to_binary([]))
     File.write("pos.txt", :erlang.term_to_binary([]))

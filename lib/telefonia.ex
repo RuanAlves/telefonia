@@ -50,10 +50,43 @@ defmodule Telefonia do
     end
   end
 
+  @doc """
+  Função parse para ` Recarga.nova/3`.
+
+  ## Parametros da função
+
+  - numero: numero do assinante em questão;
+  - data: data de realização da chamda;
+  - valor: valor da recarga;
+
+  """
   def recarga(numero, data, valor), do: Recarga.nova(data, valor, numero)
 
+  @doc """
+  Função parse para ` Assinante.buscar_assinante/2`.
+
+  ## Parametros da função
+
+  - numero: numero do assinante em questão;
+  - plano: tipo de plano do assinante `:prepago` ou `:pospago`;
+
+  ## Informações adicionais
+
+  - caso o tipo de plano não for passado, vai ser listado todos os tipos de assinantes;
+
+  """
   def buscar_por_numero(numero, plano \\ :all), do: Assinante.buscar_assinante(numero, plano)
 
+  @doc """
+  Funação imprime um relatório de todos os assinantes do sistema. A função faz um parse para as funções
+  `Prepago.imprimir_conta/3` e `Pospago.imprimir_conta/3`. Pega os dados filtrados por mês e ano e imprime na tela.
+
+  ## Parametros da função
+
+  - mes: parametro que será usado para filtrar os dados por mês;
+  - ano: parametro que será usado para filtrar os dados por ano;
+
+  """
   def imprimir_contas(mes, ano) do
 
     Assinante.assinantes_prepago()
@@ -72,7 +105,14 @@ defmodule Telefonia do
 
     Assinante.assinantes_postpago()
     |> Enum.each(fn assinante ->
-
+      assinante = Pospago.imprimir_conta(mes, ano, assinante.numero)
+      IO.puts("Conta do tipo Pospago do Assinante: #{assinante.nome}")
+      IO.puts("Numero: #{assinante.numero}")
+      IO.puts("Chamadas: ")
+      IO.inspect(assinante.chamadas)
+      IO.puts("Total de Chamadas: #{Enum.count(assinante.chamadas)}")
+      IO.puts("Valor da fatura: #{assinante.plano.valor}")
+      IO.puts("================================================================")
     end)
 
   end
