@@ -6,7 +6,7 @@ manipulação de arquivos, estruturas de dados, criar documentação, criar test
 
 # Informacoes Tecnicas
 
-- ecossistema elixir
+- Ecossistema elixir
 
 ## Iniciando localmente
 
@@ -40,16 +40,30 @@ $ mix deps.get
 $ iex -S mix
 ```
 
-# Comandos para Testes
+# Comandos para Testes da Aplicação
 
 Para gerar o percentual de teste da aplicação
 ```sh
 $ mix test --cover
 ```
 
-Para gerar o percentual de teste da aplicação
+Para gerar teste da aplicação
 ```sh
-$ mix test --cover
+$ mix test
+```
+Para gerar teste da aplicação com 'Watch' -> https://github.com/lpil/mix-test.watch
+```sh
+$ mix test.watch
+```
+
+Para gerar teste de module especifíco da aplicação com 'Watch' -> https://github.com/lpil/mix-test.watch
+```sh
+mix test.watch test/assinante_test.exs
+```
+
+Para gerar teste de module especifíco por linha, da aplicação com 'Watch' -> https://github.com/lpil/mix-test.watch
+```sh
+mix test.watch test/assinante_test.exs:23
 ```
 
 # Gerar documentação da aplicação

@@ -18,6 +18,7 @@ defmodule Assinante_test do
     end)
   end
 
+
   # Método que agrupa todos os testes relacionados a descrição
   describe "testes responsaveis para cadastro de assinantes" do
     test "deve retornar estrutura de assinante" do
