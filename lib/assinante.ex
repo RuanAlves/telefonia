@@ -20,35 +20,69 @@ defmodule Assinante do
   @assinantes %{:prepago => "pre.txt", :pospago => "pos.txt"}
 
   @doc """
-  Buscar por assinante
+  Função que lista assinantes `prepagos`, `pospagos` e também todos os assinantes
 
-  ## Parametros
+  ## Parametros da função
+  - numero: numero que foi cadastrado para o assinante
+  - key: a chave que é um atom com o tipo de cliente: `:prepago`, `:pospago` ou `:all`
 
-  - numero: passe o numero somente
-  - key: se nao passar nada sera `:all`
+  ## Informações adicionais
+  - Caso o parametro de tipo de cliente não for passo, será listado uma lista todos os tipos de clientes
+
+  ## Exemplo
+
+      iex> Assinante.cadastrar("Henry", "123", "123123", :prepago)
+      iex> Assinante.buscar_assinante("123", :prepago)
+      %Assinante{cpf: "123123", nome: "Henry", numero: "123", plano: %Prepago{creditos: 0, recargas: []}}
+
+      iex> Assinante.cadastrar("Gissandro", "1234", "123123", :pospago)
+      iex> Assinante.buscar_assinante("1234", :pospago)
+      %Assinante{cpf: "123123", nome: "Gissandro", numero: "1234", plano: %Pospago{valor: 0}}
+
   """
   def buscar_assinante(numero, key \\ :all), do: buscar(numero, key)
   defp buscar(numero, :prepago), do: filtro(assinantes_prepago(), numero)
-  defp buscar(numero, :pospago), do: filtro(assinantes_postpago(), numero)
+  defp buscar(numero, :pospago), do: filtro(assinantes_pospago(), numero)
   defp buscar(numero, :all), do: filtro(assinantes(), numero)
   defp filtro(lista, numero), do: Enum.find(lista, &(&1.numero == numero))
 
   # defp filtro(lista, numero), do: Enum.find(lista, fn assinante -> assinante.numero end) => Foi trocado por uma função: Anonino function end
 
   @doc """
-  Buscar todos assinantes
+  Função com aridade `0` que lista todos os assantes, prepagos e pospagos
+
+  ## Exemplo
+      iex> Assinante.cadastrar("Henry", "123", "123123", :prepago)
+      iex> Assinante.cadastrar("Gissandro", "1234", "123123", :pospago)
+      iex> Assinante.assinantes()
+      [
+         %Assinante{cpf: "123123", nome: "Henry", numero: "123", plano: %Prepago{creditos: 0, recargas: []}},
+         %Assinante{cpf: "123123", nome: "Gissandro", numero: "1234", plano: %Pospago{valor: 0}}
+      ]
   """
   def assinantes(), do: read(:prepago) ++ read(:pospago)
 
   @doc """
-  Buscar todos assinantes prepago
+  Função com aridade `0` que lista todos os assantes prepagos
+
+  ## Exemplo
+      iex> Assinante.cadastrar("Henry", "123", "123123", :prepago)
+      iex> Assinante.cadastrar("Gissandro", "1234", "123123", :pospago)
+      iex> Assinante.assinantes_prepago()
+      [%Assinante{cpf: "123123", nome: "Henry", numero: "123", plano: %Prepago{creditos: 0, recargas: []}}]
   """
   def assinantes_prepago(), do: read(:prepago)
 
   @doc """
-  Buscar todos assinantes pospago
+  Função com aridade `0` que lista todos os assantes pospagos
+
+  ## Exemplo
+      iex> Assinante.cadastrar("Henry", "123", "123123", :prepago)
+      iex> Assinante.cadastrar("Gissandro", "1234", "123123", :pospago)
+      iex> Assinante.assinantes_pospago()
+      [%Assinante{cpf: "123123", nome: "Gissandro", numero: "1234", plano: %Pospago{valor: 0}}]
   """
-  def assinantes_postpago(), do: read(:pospago)
+  def assinantes_pospago(), do: read(:pospago)
 
   @doc """
   Função para cadastrar assinante, seja ele `prepago` e `pospago`
@@ -97,12 +131,14 @@ defmodule Assinante do
   end
 
   @doc """
-  Funcao para atualizar assinante, e obrigatorio manter o plano
+  Função atualiza a lista de assinates com informações novas de chamadas do assinante.
+  A função recebe um assinante atualizado, deleta as informações do assinante antigas e insere
+  o assinante novamente com as novas informações.
 
-  ##  Parametros da Funcao
+  ## Parametos da função
+  - numero: numero unico e caso exista pode retornar um erro;
+  - assinante: assinate com as informações de plano atualizadas;
 
-  - numero: numero unico e caso exista pode retornar um erro
-  - assinante: sempre e necessario passar o assinante
   """
   def atualizar(numero, assinante) do
     {assinante_antigo, nova_lista} = deletar_item(numero)

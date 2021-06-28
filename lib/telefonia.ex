@@ -1,7 +1,7 @@
 defmodule Telefonia do
 
   @moduledoc """
-  Módulo possuí funções que fazem parse para as demais funções de outros módulos do sistema
+  Modulo possui funções que fazem parse para as demais funções de outros modulos do sistema.
   """
 
   @doc """
@@ -40,9 +40,25 @@ defmodule Telefonia do
 
   @doc """
   Função parse para `Assinante.assinantes_pospago/0`
-  """
-  def listar_assinantes_pospago, do: Assinante.assinantes_postpago()
 
+  """
+  def listar_assinantes_pospago, do: Assinante.assinantes_pospago()
+
+  @doc """
+  Função parse para `Prepago.fazer_chamada/3` e `Pospago.fazer_chamada/3`.
+
+  ## Parametros da função
+
+  - numero: numero do assinante em questão;
+  - plano: tipo de plano `:prepago` ou `:pospago`;
+  - data: data da chamada;
+  - duracao: tempo em minutos;
+
+  ## Informações adicionais
+
+  - O parse é realizado conforme o tipo de plano para suas devidas funções.
+
+  """
   def fazer_chamada(numero, plano, data, duracao) do
     cond do
       plano == :prepago -> Prepago.fazer_chamada(numero, data, duracao)
@@ -103,7 +119,7 @@ defmodule Telefonia do
       IO.puts("=================================================================")
     end)
 
-    Assinante.assinantes_postpago()
+    Assinante.assinantes_pospago()
     |> Enum.each(fn assinante ->
       assinante = Pospago.imprimir_conta(mes, ano, assinante.numero)
       IO.puts("Conta do tipo Pospago do Assinante: #{assinante.nome}")

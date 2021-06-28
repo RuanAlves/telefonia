@@ -21,7 +21,7 @@ defmodule PospagoTest do
     assert %Pospago{valor: 10}.valor == 10
   end
 
-  test "Deve fazer uma ligação" do
+  test "Deve fazer uma ligação pospago" do
 
     Assinante.cadastrar("Usuario", "123", "123", :pospago)
 
